@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "fastlucide"
+  site-url: "https://AnswerDotAI.github.io/fastlucide"
+  description: "Lucide icons for FastHTML"
+  repo-branch: main
+  repo-url: "https://github.com/AnswerDotAI/fastlucide"
