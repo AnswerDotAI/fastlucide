@@ -14,5 +14,4 @@ d = { 'settings': { 'branch': 'main',
                                  'fastlucide.core.read_icons': ('core.html#read_icons', 'fastlucide/core.py'),
                                  'fastlucide.core.sprites': ('core.html#sprites', 'fastlucide/core.py'),
                                  'fastlucide.core.symbol': ('core.html#symbol', 'fastlucide/core.py'),
-                                 'fastlucide.core.sz_attrs': ('core.html#sz_attrs', 'fastlucide/core.py')},
-            'fastlucide.icons': {}}}
+                                 'fastlucide.core.sz_attrs': ('core.html#sz_attrs', 'fastlucide/core.py')}}}

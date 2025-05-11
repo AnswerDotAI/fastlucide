@@ -16,13 +16,13 @@ import pathlib
 # %% ../nbs/00_core.ipynb 4
 def read_icons():
     path = pathlib.Path(__file__).parent
-    fpath = path/'icons.py'
+    fpath = path/'_icons.py'
     return loads(fpath.read_text())
 
 # %% ../nbs/00_core.ipynb 8
 def sz_attrs(sz):
     "Attrs necessary to size an SVG"
-    return dict(viewBox='0 0 24 24', width='24px', height='24px')
+    return dict(viewBox=f'0 0 24 24', width=f'{sz}px', height=f'{sz}px')
 
 # %% ../nbs/00_core.ipynb 10
 def symbol(
@@ -47,13 +47,14 @@ def sprites(
 
 # %% ../nbs/00_core.ipynb 14
 def icon(
-    id, # id of sprite
+    nm, # Name of icon in lucide
+    pre='', # Prefix to add to element id
     cls="lucide-icon", # class to use for svg
     sz=24, # size of svg
     **attrs # additional attrs for svg
 ):
     "A `use` element in an `svg` element refering to `nm`"
-    return Svg(Use(href=f"#{id}"), cls=cls, **sz_attrs(sz), **attrs)
+    return Svg(Use(href=f"#{pre}{nm}"), cls=cls, icon=nm, **sz_attrs(sz), **attrs)
 
 # %% ../nbs/00_core.ipynb 17
 def SvgStyle(cls="lucide-icon"):
@@ -63,8 +64,9 @@ def SvgStyle(cls="lucide-icon"):
 # %% ../nbs/00_core.ipynb 18
 class SvgSprites:
     "Create an track used icons"
-    def __init__(self, pre='', sz=24, cls="lucide-icon", **attrs):
-        self.nms,self.attrs = set(),attrs
+    def __init__(self, pre='', sz=24, cls="lucide-icon", nms=(), **attrs):
+        nms = set(nms)
+        self.attrs = attrs
         self.icons = read_icons()
         store_attr()
 
@@ -72,7 +74,7 @@ class SvgSprites:
         self.nms.add(nm)
         if not sz: sz=self.sz
         attrs = self.attrs | kw
-        return icon(self.pre+nm, sz=sz, cls = f"{self.cls} {cls}", **attrs)
+        return icon(nm, self.pre, sz=sz, cls = f"{self.cls} {cls}", **attrs)
 
     def __ft__(self):
         return SvgStyle(cls=self.cls),sprites(self.icons, self.nms, self.pre)
