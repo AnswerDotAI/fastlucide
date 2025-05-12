@@ -13,4 +13,6 @@ def __getattr__(nm):
     return partial(spritesheet, nm)
 
 def __dir__():
-    return [(o[0].upper()+o[1:]).replace('-','_') for o in spritesheet.icons]
+    return [(o[0].upper()+o[1:]).replace('-','_')
+            for o in spritesheet.icons]
+
