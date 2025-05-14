@@ -1,0 +1,52 @@
+[
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "core",
+    "section": "",
+    "text": "__file__='../fastlucide/_icons.py'\n\n\nsource\n\nread_icons\n\n read_icons ()\n\n\nicons = read_icons()\n\n\nnm = 'a-arrow-down'\nico = icons[nm]\nico\n\n[['path', {'d': 'M3.5 13h6'}],\n ['path', {'d': 'm2 16 4.5-9 4.5 9'}],\n ['path', {'d': 'M18 7v9'}],\n ['path', {'d': 'm14 12 4 4 4-4'}]]\n\n\n\nsvg_attrs = dict(fill='none', stroke='currentColor', stroke_width='2', stroke_linecap='round', stroke_linejoin='round')\n\n\nsource\n\n\nsz_attrs\n\n sz_attrs (sz)\n\nAttrs necessary to size an SVG\n\nsym = [ft(t, **attrs) for t,attrs in ico]\nshow(Svg(*sym, **sz_attrs(24), **svg_attrs))\nshow(Svg(*sym, **sz_attrs(16), **svg_attrs))\n\n\n\n\n\n\n\n\nsource\n\n\nsymbol\n\n symbol (icons, nm, pre='')\n\nCreate a symbol element for an icon\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nicons\n\n\nicon dict\n\n\nnm\n\n\nName of icon in lucide\n\n\npre\nstr\n\nPrefix to add to element id\n\n\n\n\nsymbol(icons, nm, 'l-')\n\n&lt;symbol id=\"l-a-arrow-down\"&gt;&lt;path d=\"M3.5 13h6\"&gt;&lt;/path&gt;&lt;path d=\"m2 16 4.5-9 4.5 9\"&gt;&lt;/path&gt;&lt;path d=\"M18 7v9\"&gt;&lt;/path&gt;&lt;path d=\"m14 12 4 4 4-4\"&gt;&lt;/path&gt;&lt;/symbol&gt;\n\n\n\nsource\n\n\nsprites\n\n sprites (icons, nms, pre='')\n\nSVG element containing all symbols in nms\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nicons\n\n\nicon dict\n\n\nnms\n\n\nList of lucide icon names\n\n\npre\nstr\n\nPrefix to add to all element ids\n\n\n\n\nsps = sprites(icons, [nm, 'accessibility'], 'l-')\nshow(sps)\n\n\n\n\n\nsource\n\n\nicon\n\n icon (nm, pre='', cls='lucide-icon', sz=24, **attrs)\n\nA use element in an svg element refering to nm\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nnm\n\n\nName of icon in lucide\n\n\npre\nstr\n\nPrefix to add to element id\n\n\ncls\nstr\nlucide-icon\nclass to use for svg\n\n\nsz\nint\n24\nsize of svg\n\n\nattrs\nVAR_KEYWORD\n\n\n\n\n\n\nused = icon('accessibility', 'l-', sz=16, **svg_attrs)\nused\n\n&lt;svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" height=\"16px\" width=\"16px\" icon=\"accessibility\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide-icon\"&gt;&lt;use href=\"#l-accessibility\"&gt;&lt;/use&gt;&lt;/svg&gt;\n\n\n\nshow(used)\n\n\n\n\n\nsource\n\n\nSvgStyle\n\n SvgStyle (cls='lucide-icon')\n\nStyles required for lucide icons to display correctly\n\nsource\n\n\nSvgSprites\n\n SvgSprites (pre='', sz=24, cls='lucide-icon', nms=(), **attrs)\n\nCreate an track used icons\n\nss = SvgSprites('lc-', sz=18)\nss(nm)\n\n&lt;svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" height=\"18px\" width=\"18px\" icon=\"a-arrow-down\" class=\"lucide-icon \"&gt;&lt;use href=\"#lc-a-arrow-down\"&gt;&lt;/use&gt;&lt;/svg&gt;\n\n\n\nshow(ss('a-arrow-down'))\nshow(ss('accessibility'))\nshow(ss)\n\n\n\n\n\n\n\n\n\n\n\n\nshow(Style('.hover-bg:hover { background-color: aliceblue; }'))\nshow(ss('accessibility', sz=30, cls='hover-bg'))\n\n\n\n\n\n\n\n\nshow(Div(ss('accessibility'), style='background-color: aliceblue; color:blue'))",
+    "crumbs": [
+      "core"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "fastlucide",
+    "section": "",
+    "text": "A convenient FastHTML wrapper for the excellent Lucide icon library.",
+    "crumbs": [
+      "fastlucide"
+    ]
+  },
+  {
+    "objectID": "index.html#installation",
+    "href": "index.html#installation",
+    "title": "fastlucide",
+    "section": "Installation",
+    "text": "Installation\nInstall from pypi\n$ pip install fastlucide",
+    "crumbs": [
+      "fastlucide"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "fastlucide",
+    "section": "How to use",
+    "text": "How to use\n\nfrom fastlucide import *\n\n\nSvgSprites\nThe most convenient way to use fastlucide is to create an SvgSprites class, passing in a short prefix to ensure IDs are unique:\n\nss = SvgSprites('l-')\n\nThen add icons whereever you want to show them, by calling the ss object with the desired name. Any additional attrs are added to the SVG.\n(NB: we use show here to cause the SVGs to render in the notebook/docs. This isn’t needed in a regular FastHTML app.)\n\nfrom fasthtml.common import show,Div\n\n\nshow(ss('a-arrow-down'))\nshow(ss('accessibility'))\n\n\n\n\n\n\n\nFinally, be sure to render ss itself, to add the sprite sheet to the DOM.\n\nshow(ss)\n\n\n\n\n\n\n\nfastlucide.icons\nIf you dynamically add a new icon to the DOM after loading the page (e.g using an HTMX swap), then the SvgSprites element will not contain that icon, so it won’t display. One solution to this is to preinitialize using e.g SvgSprites(nms=['air-vent', 'apple']).\nAlternatively, you can import any icon name (sentence-cased, with underscores instead of hyphens) from fastlucide.icons, which will create an icon-generating function and also adds the name to spritesheet, which is an SvgSprite singleton.\n\nfrom fastlucide.icons import spritesheet, Air_vent, Apple\n\nYou can now call Air_vent and Apple as functions – be sure to also include spritesheet in the DOM. If you use the same icon multiple times, you can optionally store it in a variable.\n\nvent = Air_vent()\nshow(vent, Apple(sz=48), vent,\n     spritesheet)\n\n\n\n\n\nBecause fastlucide.icons supports the __dir__ protocol, you can use tab-completion in jupyter and similar environments to view a list of matching icons. Or call dir() programmatically.\n\nfrom fastlucide import icons\n\n\n[o for o in dir(icons) if o.startswith('Star')]\n\n['Star', 'Star_half', 'Star_off']",
+    "crumbs": [
+      "fastlucide"
+    ]
+  },
+  {
+    "objectID": "index.html#how-it-works",
+    "href": "index.html#how-it-works",
+    "title": "fastlucide",
+    "section": "How it works",
+    "text": "How it works\nWhen we render an icon, the actual SVG path information is not included – only an href to an id is there:\n\nss('a-arrow-down')\n\n&lt;svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" height=\"24px\" width=\"24px\" icon=\"a-arrow-down\" class=\"lucide-icon \"&gt;&lt;use href=\"#l-a-arrow-down\"&gt;&lt;/use&gt;&lt;/svg&gt;\n\n\nThe definitions of these ids is provided in the ss object itself, along with style information:\n\nfrom fastcore.xml import highlight\nfrom IPython.display import Markdown\n\n\nMarkdown(highlight(ss))\n\n&lt;style&gt;.lucide-icon { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }&lt;/style&gt;\n&lt;svg xmlns=\"http://www.w3.org/2000/svg\" style=\"display: none\"&gt;&lt;defs&gt;&lt;symbol id=\"l-a-arrow-down\"&gt;&lt;path d=\"M3.5 13h6\"&gt;&lt;/path&gt;&lt;path d=\"m2 16 4.5-9 4.5 9\"&gt;&lt;/path&gt;&lt;path d=\"M18 7v9\"&gt;&lt;/path&gt;&lt;path d=\"m14 12 4 4 4-4\"&gt;&lt;/path&gt;&lt;/symbol&gt;&lt;symbol id=\"l-accessibility\"&gt;&lt;circle cx=\"16\" cy=\"4\" r=\"1\"&gt;&lt;/circle&gt;&lt;path d=\"m18 19 1-7-6 1\"&gt;&lt;/path&gt;&lt;path d=\"m5 8 3-3 5.5 3-2.36 3.5\"&gt;&lt;/path&gt;&lt;path d=\"M4.24 14.5a5 5 0 0 0 6.88 6\"&gt;&lt;/path&gt;&lt;path d=\"M13.76 17.5a5 5 0 0 0-6.88-6\"&gt;&lt;/path&gt;&lt;/symbol&gt;&lt;/defs&gt;&lt;/svg&gt;",
+    "crumbs": [
+      "fastlucide"
+    ]
+  }
+]
