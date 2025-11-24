@@ -20,9 +20,12 @@ def read_icons():
     return loads(fpath.read_text())
 
 # %% ../nbs/00_core.ipynb 8
-def sz_attrs(sz):
+def sz_attrs(sz, vbox=24):
     "Attrs necessary to size an SVG"
-    return dict(viewBox=f'0 0 24 24', width=f'{sz}px', height=f'{sz}px')
+    if isinstance(vbox, int): vbox = (vbox,vbox)
+    if isinstance(sz, int): sz = (sz,sz)
+    (vx, vy), (szx, szy) = vbox, sz
+    return dict(viewBox=f'0 0 {vx} {vy}', width=f'{szx}px', height=f'{szy}px')
 
 # %% ../nbs/00_core.ipynb 10
 def symbol(
@@ -50,11 +53,12 @@ def icon(
     nm, # Name of icon in lucide
     pre='', # Prefix to add to element id
     cls="lucide-icon", # class to use for svg
+    vbox=24,
     sz=24, # size of svg
     **attrs # additional attrs for svg
 ):
     "A `use` element in an `svg` element refering to `nm`"
-    return Svg(Use(href=f"#{pre}{nm}"), cls=cls, icon=nm, **sz_attrs(sz), **attrs)
+    return Svg(Use(href=f"#{pre}{nm}"), cls=cls, icon=nm, **sz_attrs(sz, vbox), **attrs)
 
 # %% ../nbs/00_core.ipynb 17
 def SvgStyle(cls="lucide-icon"):
@@ -64,7 +68,7 @@ def SvgStyle(cls="lucide-icon"):
 # %% ../nbs/00_core.ipynb 18
 class SvgSprites:
     "Create an track used icons"
-    def __init__(self, pre='', sz=24, cls="lucide-icon", nms=(), **attrs):
+    def __init__(self, pre='', vbox=24, sz=24, cls="lucide-icon", nms=(), **attrs):
         nms = set(nms)
         self.attrs = attrs
         self.icons = read_icons()
@@ -74,7 +78,7 @@ class SvgSprites:
         self.nms.add(nm)
         if not sz: sz=self.sz
         attrs = self.attrs | kw
-        return icon(nm, self.pre, sz=sz, cls = f"{self.cls} {cls}", **attrs)
+        return icon(nm, self.pre, vbox=self.vbox, sz=sz, cls = f"{self.cls} {cls}", **attrs)
 
     def __ft__(self):
         return SvgStyle(cls=self.cls),sprites(self.icons, self.nms, self.pre)
@@ -84,7 +88,6 @@ trans = {'side-by-side': 'translate(24, 0)', 'stacked': 'translate(0, 24)'}
 def combined(
     icon1, icon2, # Icon partials from SvgSprites
     position='overlap', # 'overlap', 'side-by-side', or 'stacked'
-    scale=None, # Scale factor (auto: 0.5 for positioned, 1.0 for overlap)
     **kw # Additional attrs for svg
 ):
     "Combine two icons with positioning"
@@ -92,10 +95,17 @@ def combined(
     ss = icon1.func
     nm1,nm2 = icon1.args[0], icon2.args[0]
     
-    # Set scale and translation based on position
-    if scale is None: scale = 1. if position=='overlap' else 0.5
-    t1,t2 = f'scale({scale})', f'scale({scale}) {trans.get(position, 'translate(0, 0)')}'
-    return Svg(Use(href=f"#{ss.pre}{nm1}", transform=t1),
-               Use(href=f"#{ss.pre}{nm2}", transform=t2),
-               cls=ss.cls, icon=f'{nm1}-{nm2}', 
-               **sz_attrs(kw.pop('sz', ss.sz)), **ss.attrs, **kw)
+    sz, vbox = kw.pop('sz', ss.sz), kw.pop('vbox', 24)
+    if position == 'overlap':
+        szx = szy = sz
+        vx  = vy  = vbox
+    elif position == 'side-by-side':
+        szx = 2*(szy := sz)
+        vx  = 2*(vy  := vbox)
+    else:
+        szy = 2*(szx := sz)
+        vy  = 2*(vx  := vbox)
+
+    return Svg(Use(href=f"#{ss.pre}{nm1}"),
+               Use(href=f"#{ss.pre}{nm2}", transform=trans.get(position, '')),
+               cls=ss.cls, icon=f'{nm1}-{nm2}', **ss.attrs, **sz_attrs((szx,szy), (vx, vy)), **kw)
