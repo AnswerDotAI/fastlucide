@@ -14,19 +14,19 @@ from json import loads
 from copy import deepcopy
 import pathlib
 
-# %% ../nbs/00_core.ipynb 4
+# %% ../nbs/00_core.ipynb 5
 def read_icons():
     path = pathlib.Path(__file__).parent
     fpath = path/'_icons.py'
     return loads(fpath.read_text())
 
-# %% ../nbs/00_core.ipynb 8
+# %% ../nbs/00_core.ipynb 9
 def sz_attrs(sz, vbox=24):
     if isinstance(vbox, int): vbox = (vbox, vbox)
     if isinstance(sz, int): sz = (sz, sz)
     return dict(viewBox=f'0 0 {vbox[0]} {vbox[1]}', width=f'{sz[0]}px', height=f'{sz[1]}px')
 
-# %% ../nbs/00_core.ipynb 10
+# %% ../nbs/00_core.ipynb 11
 def symbol(
     icons, # icon dict
     nm, # Name of icon in lucide
@@ -37,7 +37,7 @@ def symbol(
     sym = [ft(t, **attrs) for t,attrs in ico]
     return Symbol(*sym, id=pre+nm)
 
-# %% ../nbs/00_core.ipynb 12
+# %% ../nbs/00_core.ipynb 13
 def sprites(
     icons, # icon dict
     nms, # List of lucide icon names
@@ -47,7 +47,7 @@ def sprites(
     syms = [symbol(icons, nm, pre) for nm in nms]
     return Svg(Defs(*syms), style="display: none")
 
-# %% ../nbs/00_core.ipynb 14
+# %% ../nbs/00_core.ipynb 15
 def _style_str(stroke=None, fill=None, stroke_width=None):
     "Build CSS style string from stroke/fill/stroke-width"
     styles = []
@@ -56,7 +56,7 @@ def _style_str(stroke=None, fill=None, stroke_width=None):
     if stroke_width: styles.append(f'stroke-width: {stroke_width}')
     return '; '.join(styles) if styles else None
 
-# %% ../nbs/00_core.ipynb 15
+# %% ../nbs/00_core.ipynb 16
 class Icon:
     def __init__(
         self,
@@ -84,7 +84,50 @@ class Icon:
     def __str__(self): return self.__ft__().__str__()
     def __call__(self, *args, **kwargs): return self.__ft__().__call__(*args, **kwargs)
 
-# %% ../nbs/00_core.ipynb 20
+# %% ../nbs/00_core.ipynb 23
+@patch
+def _with_trans(self:Icon, t):
+    "Helper function to add the transform to all underlying uses."
+    res = deepcopy(self)
+    for u in res.uses: u.transform = f"{u.transform or ''} {t}".strip()
+    return res
+
+# %% ../nbs/00_core.ipynb 25
+@patch
+def rotate(self:Icon, a, cx=0, cy=0):
+    "Rotates the element by a degrees, optionally around point (cx, cy)."
+    return self._with_trans(f'rotate({a})' if not cx else f'rotate({a},{cx},{cy})')
+
+# %% ../nbs/00_core.ipynb 27
+@patch
+def scale(self:Icon, x, y=0):
+    "Scales the element by x (and optionally y)."
+    return self._with_trans(f'scale({x})' if not y else f'scale({x},{y})')
+
+# %% ../nbs/00_core.ipynb 31
+@patch
+def translate(self:Icon, x, y=0): 
+    "Moves the element by x horizontally and optionally y vertically."
+    return self._with_trans(f'translate({x})' if not y else f'translate({x},{y})')
+
+# %% ../nbs/00_core.ipynb 33
+@patch
+def skewX(self:Icon, a):
+    "Skews the element along the X axis by a degrees."
+    return self._with_trans(f'skewX({a})')
+
+@patch
+def skewY(self:Icon, a):
+    "Skews the element along the Y axis by a degrees."
+    return self._with_trans(f'skewY({a})')
+
+# %% ../nbs/00_core.ipynb 36
+@patch
+def matrix(self:Icon, a, b, c, d, e, f):
+    "Applies a matrix transformation with 6 values."
+    return self._with_trans(f'matrix({a},{b},{c},{d},{e},{f})')
+
+# %% ../nbs/00_core.ipynb 42
 @patch
 def __iadd__(self:Icon, b):
     self.uses += b.uses
@@ -96,14 +139,14 @@ def __add__(self:Icon, b):
     res += b
     return res
 
-# %% ../nbs/00_core.ipynb 27
+# %% ../nbs/00_core.ipynb 51
 def SvgStyle(cls="lucide-icon"):
     "Styles required for lucide icons to display correctly"
     return Style(f'.{cls} {{ stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }}')
 
-# %% ../nbs/00_core.ipynb 28
+# %% ../nbs/00_core.ipynb 52
 class SvgSprites:
-    "Create an track used icons"
+    "Create and track used icons"
     def __init__(self, pre='', vbox=24, sz=24, cls="lucide-icon", nms=(), **attrs):
         nms = set(nms)
         self.attrs = attrs
