@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 0.0.5
+
+### New Features
+
+- add transform methods ([#5](https://github.com/AnswerDotAI/fastlucide/pull/5)), thanks to [@RensDimmendaal](https://github.com/RensDimmendaal)
+
+
 ## 0.0.4
 
 ### New Features
