@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 0.0.6
+
+### New Features
+
+- Add `lc-` prefix in `spritesheet` ([#6](https://github.com/AnswerDotAI/fastlucide/issues/6))
+
+
 ## 0.0.5
 
 ### New Features
