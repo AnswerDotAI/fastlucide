@@ -3,7 +3,7 @@ from functools import partial
 
 __all__ = ['spritesheet','combined']
 
-spritesheet = SvgSprites()
+spritesheet = SvgSprites('lc-')
 
 def __getattr__(nm):
     if nm.startswith('_'): raise AttributeError()
