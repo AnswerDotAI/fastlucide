@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Fill in a module description here">
+
+<title>core – fastlucide</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-000f0825b9c55ed21d14970d810c14a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="core – fastlucide">
+<meta property="og:description" content="Fill in a module description here">
+<meta property="og:site_name" content="fastlucide">
+<meta name="twitter:title" content="core – fastlucide">
+<meta name="twitter:description" content="Fill in a module description here">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">fastlucide</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./core.html">core</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fastlucide</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./core.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">core</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#read_icons" id="toc-read_icons" class="nav-link active" data-scroll-target="#read_icons">read_icons</a></li>
+  <li><a href="#sz_attrs" id="toc-sz_attrs" class="nav-link" data-scroll-target="#sz_attrs">sz_attrs</a></li>
+  <li><a href="#symbol" id="toc-symbol" class="nav-link" data-scroll-target="#symbol">symbol</a></li>
+  <li><a href="#sprites" id="toc-sprites" class="nav-link" data-scroll-target="#sprites">sprites</a></li>
+  <li><a href="#icon" id="toc-icon" class="nav-link" data-scroll-target="#icon">Icon</a></li>
+  <li><a href="#transforms" id="toc-transforms" class="nav-link" data-scroll-target="#transforms">Transforms</a>
+  <ul class="collapse">
+  <li><a href="#icon.rotate" id="toc-icon.rotate" class="nav-link" data-scroll-target="#icon.rotate">Icon.rotate</a></li>
+  <li><a href="#icon.scale" id="toc-icon.scale" class="nav-link" data-scroll-target="#icon.scale">Icon.scale</a></li>
+  <li><a href="#icon.translate" id="toc-icon.translate" class="nav-link" data-scroll-target="#icon.translate">Icon.translate</a></li>
+  <li><a href="#icon.skewy" id="toc-icon.skewy" class="nav-link" data-scroll-target="#icon.skewy">Icon.skewY</a></li>
+  <li><a href="#icon.skewx" id="toc-icon.skewx" class="nav-link" data-scroll-target="#icon.skewx">Icon.skewX</a></li>
+  <li><a href="#icon.matrix" id="toc-icon.matrix" class="nav-link" data-scroll-target="#icon.matrix">Icon.matrix</a></li>
+  </ul></li>
+  <li><a href="#combining-icons" id="toc-combining-icons" class="nav-link" data-scroll-target="#combining-icons">Combining icons</a>
+  <ul class="collapse">
+  <li><a href="#icon.__add__" id="toc-icon.__add__" class="nav-link" data-scroll-target="#icon.__add__">Icon.__add__</a></li>
+  <li><a href="#icon.__iadd__" id="toc-icon.__iadd__" class="nav-link" data-scroll-target="#icon.__iadd__">Icon.__iadd__</a></li>
+  <li><a href="#svgstyle" id="toc-svgstyle" class="nav-link" data-scroll-target="#svgstyle">SvgStyle</a></li>
+  <li><a href="#svgsprites" id="toc-svgsprites" class="nav-link" data-scroll-target="#svgsprites">SvgSprites</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/AnswerDotAI/fastlucide/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="core.html.md"><i class="bi bi-file-code"></i>CommonMark</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">core</h1>
+</div>
+
+<div>
+  <div class="description">
+    Fill in a module description here
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div id="d38f8ce2" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="1691da12" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">__file__</span><span class="op">=</span><span class="st">'../fastlucide/_icons.py'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L18" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="read_icons" class="level3">
+<h3 class="anchored" data-anchor-id="read_icons">read_icons</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_icons(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="11fa87ad" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>icons <span class="op">=</span> read_icons()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="d4d6cb94" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nm <span class="op">=</span> <span class="st">'a-arrow-down'</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ico <span class="op">=</span> icons[nm]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ico</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>[['path', {'d': 'M3.5 13h6'}],
+ ['path', {'d': 'm2 16 4.5-9 4.5 9'}],
+ ['path', {'d': 'M18 7v9'}],
+ ['path', {'d': 'm14 12 4 4 4-4'}]]</code></pre>
+</div>
+</div>
+<div id="e7b1100a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>svg_attrs <span class="op">=</span> <span class="bu">dict</span>(fill<span class="op">=</span><span class="st">'none'</span>, stroke<span class="op">=</span><span class="st">'currentColor'</span>, stroke_width<span class="op">=</span><span class="st">'2'</span>, stroke_linecap<span class="op">=</span><span class="st">'round'</span>, stroke_linejoin<span class="op">=</span><span class="st">'round'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L24" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="sz_attrs" class="level3">
+<h3 class="anchored" data-anchor-id="sz_attrs">sz_attrs</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sz_attrs(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    sz, vbox:<span class="bu">int</span><span class="op">=</span><span class="dv">24</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2d35c8d1" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sym <span class="op">=</span> [ft(t, <span class="op">**</span>attrs) <span class="cf">for</span> t,attrs <span class="kw">in</span> ico]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>show(Svg(<span class="op">*</span>sym, <span class="op">**</span>sz_attrs(<span class="dv">24</span>), <span class="op">**</span>svg_attrs))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>show(Svg(<span class="op">*</span>sym, <span class="op">**</span>sz_attrs(<span class="dv">16</span>), <span class="op">**</span>svg_attrs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 13h6"></path><path d="m2 16 4.5-9 4.5 9"></path><path d="M18 7v9"></path><path d="m14 12 4 4 4-4"></path></svg>
+</div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="16px" width="16px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 13h6"></path><path d="m2 16 4.5-9 4.5 9"></path><path d="M18 7v9"></path><path d="m14 12 4 4 4-4"></path></svg>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L30" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="symbol" class="level3">
+<h3 class="anchored" data-anchor-id="symbol">symbol</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> symbol(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    icons, <span class="co"># icon dict</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    nm, <span class="co"># Name of icon in lucide</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    pre:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="co"># Prefix to add to element id</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Create a <a href="https://AnswerDotAI.github.io/fastlucide/core.html#symbol"><code>symbol</code></a> element for an icon</em></p>
+<div id="dc564d41" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>symbol(icons, nm, <span class="st">'l-'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">symbol</span><span class="ot"> id</span><span class="op">=</span><span class="st">"l-a-arrow-down"</span><span class="dt">&gt;&lt;</span><span class="kw">path</span><span class="ot"> d</span><span class="op">=</span><span class="st">"M3.5 13h6"</span><span class="dt">&gt;&lt;/</span><span class="kw">path</span><span class="dt">&gt;&lt;</span><span class="kw">path</span><span class="ot"> d</span><span class="op">=</span><span class="st">"m2 16 4.5-9 4.5 9"</span><span class="dt">&gt;&lt;/</span><span class="kw">path</span><span class="dt">&gt;&lt;</span><span class="kw">path</span><span class="ot"> d</span><span class="op">=</span><span class="st">"M18 7v9"</span><span class="dt">&gt;&lt;/</span><span class="kw">path</span><span class="dt">&gt;&lt;</span><span class="kw">path</span><span class="ot"> d</span><span class="op">=</span><span class="st">"m14 12 4 4 4-4"</span><span class="dt">&gt;&lt;/</span><span class="kw">path</span><span class="dt">&gt;&lt;/</span><span class="kw">symbol</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L41" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="sprites" class="level3">
+<h3 class="anchored" data-anchor-id="sprites">sprites</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sprites(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    icons, <span class="co"># icon dict</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    nms, <span class="co"># List of lucide icon names</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    pre:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="co"># Prefix to add to all element ids</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>SVG element containing all symbols in <code>nms</code></em></p>
+<div id="a392b5a8" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sps <span class="op">=</span> sprites(icons, [nm, <span class="st">'accessibility'</span>], <span class="st">'l-'</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>show(sps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none"><defs><symbol id="l-a-arrow-down"><path d="M3.5 13h6"></path><path d="m2 16 4.5-9 4.5 9"></path><path d="M18 7v9"></path><path d="m14 12 4 4 4-4"></path></symbol><symbol id="l-accessibility"><circle cx="16" cy="4" r="1"></circle><path d="m18 19 1-7-6 1"></path><path d="m5 8 3-3 5.5 3-2.36 3.5"></path><path d="M4.24 14.5a5 5 0 0 0 6.88 6"></path><path d="M13.76 17.5a5 5 0 0 0-6.88-6"></path></symbol></defs></svg>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L60" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="icon" class="level3">
+<h3 class="anchored" data-anchor-id="icon">Icon</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Icon(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    nm, <span class="co"># Name of icon in lucide</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    pre:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, <span class="co"># Prefix to add to element id</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    cls:<span class="bu">str</span><span class="op">=</span><span class="st">'lucide-icon'</span>, <span class="co"># class to use for svg</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    vbox:<span class="bu">int</span><span class="op">=</span><span class="dv">24</span>, <span class="co"># viewBox size (int for square, or (w,h) tuple)</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    sz:<span class="bu">int</span><span class="op">=</span><span class="dv">24</span>, <span class="co"># size of svg</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    stroke:NoneType<span class="op">=</span><span class="va">None</span>, <span class="co"># Stroke CSS</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    stroke_width:NoneType<span class="op">=</span><span class="va">None</span>, <span class="co"># Stroke width CSS</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    fill:NoneType<span class="op">=</span><span class="va">None</span>, <span class="co"># Fill CSS</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    trans:NoneType<span class="op">=</span><span class="va">None</span>, <span class="co"># SVG transform attribute</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    attrs:VAR_KEYWORD</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A <code>use</code> element in an <code>svg</code> element refering to <code>nm</code></em></p>
+<div id="1e4748b2" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>accs <span class="op">=</span> Icon(<span class="st">'accessibility'</span>, <span class="st">'l-'</span>, sz<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>accs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">svg</span><span class="ot"> xmlns</span><span class="op">=</span><span class="st">"http://www.w3.org/2000/svg"</span><span class="ot"> viewbox</span><span class="op">=</span><span class="st">"0 0 24 24"</span><span class="ot"> height</span><span class="op">=</span><span class="st">"16px"</span><span class="ot"> width</span><span class="op">=</span><span class="st">"16px"</span><span class="ot"> class</span><span class="op">=</span><span class="st">"lucide-icon"</span><span class="dt">&gt;&lt;</span><span class="kw">use</span><span class="ot"> href</span><span class="op">=</span><span class="st">"#l-accessibility"</span><span class="dt">&gt;&lt;/</span><span class="kw">use</span><span class="dt">&gt;&lt;/</span><span class="kw">svg</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="fbb50154" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accs(foo<span class="op">=</span><span class="st">'bar'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="16px" width="16px" class="lucide-icon" foo="bar"&gt;&lt;use href="#l-accessibility"&gt;&lt;/use&gt;&lt;/svg&gt;</code></pre>
+</div>
+</div>
+<div id="4b93ff3b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>show(accs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="16px" width="16px" class="lucide-icon"><use href="#l-accessibility"></use></svg>
+</div>
+</div>
+<div id="c7bb69cb" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>show(Icon(<span class="st">'accessibility'</span>, <span class="st">'l-'</span>, sz<span class="op">=</span><span class="dv">16</span>, stroke_width<span class="op">=</span><span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="16px" width="16px" class="lucide-icon"><use href="#l-accessibility" style="stroke-width: 3"></use></svg>
+</div>
+</div>
+</section>
+<section id="transforms" class="level2">
+<h2 class="anchored" data-anchor-id="transforms">Transforms</h2>
+<p>Now let’s add a helper function to transform Icon’s with python object methods.</p>
+<p>Using that we can define <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/transform#transform_functions">the six svg transforms</a> as python instance methods.</p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L97" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="icon.rotate" class="level3">
+<h3 class="anchored" data-anchor-id="icon.rotate">Icon.rotate</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rotate(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    a, cx:<span class="bu">int</span><span class="op">=</span><span class="dv">0</span>, cy:<span class="bu">int</span><span class="op">=</span><span class="dv">0</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Rotates the element by a degrees, optionally around point (cx, cy).</em></p>
+<div id="8c0292a7" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>show(au<span class="op">:=</span>Icon(<span class="st">'arrow-up'</span>,<span class="st">'l-'</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>show(au.rotate(<span class="dv">45</span>,<span class="dv">12</span>,<span class="dv">12</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up" transform="rotate(45,12,12)"></use></svg>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L103" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="icon.scale" class="level3">
+<h3 class="anchored" data-anchor-id="icon.scale">Icon.scale</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> scale(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    x, y:<span class="bu">int</span><span class="op">=</span><span class="dv">0</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Scales the element by x (and optionally y).</em></p>
+<p>Now we can also demonstrate transform chaining:</p>
+<div id="b8cbb30a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>show(au)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>show(au.scale(<span class="fl">0.75</span>,<span class="fl">0.75</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>show(au.scale(<span class="fl">0.75</span>,<span class="fl">0.75</span>).rotate(<span class="dv">45</span>,<span class="dv">12</span>,<span class="dv">12</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up" transform="scale(0.75,0.75)"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up" transform="scale(0.75,0.75) rotate(45,12,12)"></use></svg>
+</div>
+</div>
+<p>Continuing with the other transforms:</p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L109" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="icon.translate" class="level3">
+<h3 class="anchored" data-anchor-id="icon.translate">Icon.translate</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> translate(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    x, y:<span class="bu">int</span><span class="op">=</span><span class="dv">0</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Moves the element by x horizontally and optionally y vertically.</em></p>
+<div id="707f16f1" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>show(au)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>show(au.translate(<span class="op">-</span><span class="dv">5</span>,<span class="op">-</span><span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up" transform="translate(-5,-5)"></use></svg>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L120" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="icon.skewy" class="level3">
+<h3 class="anchored" data-anchor-id="icon.skewy">Icon.skewY</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> skewY(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    a</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Skews the element along the Y axis by a degrees.</em></p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L115" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="icon.skewx" class="level3">
+<h3 class="anchored" data-anchor-id="icon.skewx">Icon.skewX</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> skewX(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    a</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Skews the element along the X axis by a degrees.</em></p>
+<div id="dc9af1a2" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>show(au)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>show(au.skewX(<span class="dv">20</span>))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>show(au.skewY(<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up" transform="skewX(20)"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up" transform="skewY(20)"></use></svg>
+</div>
+</div>
+<p>The <code>matrix(a, b, c, d, e, f)</code> transform combines all other transforms into one. The parameters map to:</p>
+<ul>
+<li><code>a</code>, <code>d</code> — scale X and Y</li>
+<li><code>b</code>, <code>c</code> — skew Y and X<br>
+</li>
+<li><code>e</code>, <code>f</code> — translate X and Y</li>
+</ul>
+<p>Common patterns: - <code>matrix(1, 0, 0, 1, tx, ty)</code> — translate by (tx, ty) - <code>matrix(sx, 0, 0, sy, 0, 0)</code> — scale by (sx, sy) - <code>matrix(1, tan(ay), tan(ax), 1, 0, 0)</code> — skew by angles ax, ay</p>
+<p>For more details see <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/transform#matrix">MDN SVG matrix transform docs</a>.</p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L126" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="icon.matrix" class="level3">
+<h3 class="anchored" data-anchor-id="icon.matrix">Icon.matrix</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> matrix(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    a, b, c, d, e, f</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Applies a matrix transformation with 6 values.</em></p>
+<p>Examples showing their equivalence to the other transforms:</p>
+<div id="40557445" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>show(au.translate(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>show(au.matrix(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up" transform="translate(5,5)"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up" transform="matrix(1,0,0,1,5,5)"></use></svg>
+</div>
+</div>
+<div id="f82d7f55" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>show(au.scale(<span class="fl">0.7</span>, <span class="fl">0.7</span>))</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>show(au.matrix(<span class="fl">0.7</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.7</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up" transform="scale(0.7,0.7)"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up" transform="matrix(0.7,0,0,0.7,0,0)"></use></svg>
+</div>
+</div>
+<div id="e2a25244" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>show(au.skewX(<span class="dv">20</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>show(au.matrix(<span class="dv">1</span>, <span class="dv">0</span>, math.tan(math.radians(<span class="dv">20</span>)), <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up" transform="skewX(20)"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-arrow-up" transform="matrix(1,0,0.36397023426620234,1,0,0)"></use></svg>
+</div>
+</div>
+</section>
+</section>
+<section id="combining-icons" class="level2">
+<h2 class="anchored" data-anchor-id="combining-icons">Combining icons</h2>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L137" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="icon.__add__" class="level3">
+<h3 class="anchored" data-anchor-id="icon.__add__">Icon.__add__</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__add__</span>(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    b</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L132" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="icon.__iadd__" class="level3">
+<h3 class="anchored" data-anchor-id="icon.__iadd__">Icon.__iadd__</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__iadd__</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    b</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2dd7d7e0" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>ad <span class="op">=</span> Icon(<span class="st">'a-arrow-down'</span>, <span class="st">'l-'</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>show(accs<span class="op">+</span>ad)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="16px" width="16px" class="lucide-icon"><use href="#l-accessibility"></use><use href="#l-a-arrow-down"></use></svg>
+</div>
+</div>
+<div id="bd861c95" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>sps <span class="op">=</span> sprites(icons, [nm, <span class="st">'accessibility'</span>, <span class="st">'check'</span>, <span class="st">'user'</span>, <span class="st">'plus'</span>, <span class="st">'circle'</span>, <span class="st">'file'</span>, <span class="st">'arrow-up'</span>], <span class="st">'l-'</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>show(sps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none"><defs><symbol id="l-a-arrow-down"><path d="M3.5 13h6"></path><path d="m2 16 4.5-9 4.5 9"></path><path d="M18 7v9"></path><path d="m14 12 4 4 4-4"></path></symbol><symbol id="l-accessibility"><circle cx="16" cy="4" r="1"></circle><path d="m18 19 1-7-6 1"></path><path d="m5 8 3-3 5.5 3-2.36 3.5"></path><path d="M4.24 14.5a5 5 0 0 0 6.88 6"></path><path d="M13.76 17.5a5 5 0 0 0-6.88-6"></path></symbol><symbol id="l-check"><path d="M20 6 9 17l-5-5"></path></symbol><symbol id="l-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></symbol><symbol id="l-plus"><path d="M5 12h14"></path><path d="M12 5v14"></path></symbol><symbol id="l-circle"><circle cx="12" cy="12" r="10"></circle></symbol><symbol id="l-file"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path></symbol><symbol id="l-arrow-up"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></symbol></defs></svg>
+</div>
+</div>
+<div id="0e62ddb4" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>show(Icon(<span class="st">'circle'</span>, <span class="st">'l-'</span>, sz<span class="op">=</span><span class="dv">24</span>) <span class="op">+</span> Icon(<span class="st">'check'</span>, <span class="st">'l-'</span>, stroke<span class="op">=</span><span class="st">'red'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-circle"></use><use href="#l-check" style="stroke: red"></use></svg>
+</div>
+</div>
+<div id="387bfdf1" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>show(Icon(<span class="st">'circle'</span>, <span class="st">'l-'</span>, sz<span class="op">=</span><span class="dv">24</span>) <span class="op">+</span> Icon(<span class="st">'check'</span>, <span class="st">'l-'</span>, stroke<span class="op">=</span><span class="st">'red'</span>).translate(<span class="dv">2</span>,<span class="dv">3</span>).scale(<span class="fl">0.8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-circle"></use><use href="#l-check" style="stroke: red" transform="translate(2,3) scale(0.8)"></use></svg>
+</div>
+</div>
+<div id="de20302a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>show(Icon(<span class="st">'user'</span>, <span class="st">'l-'</span>, sz<span class="op">=</span><span class="dv">24</span>, stroke_width<span class="op">=</span><span class="dv">1</span>).translate(<span class="op">-</span><span class="dv">4</span>, <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>     Icon(<span class="st">'plus'</span>, <span class="st">'l-'</span>, stroke_width<span class="op">=</span><span class="dv">3</span>).translate(<span class="dv">9</span>, <span class="dv">3</span>).scale(<span class="fl">0.6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-user" style="stroke-width: 1" transform="translate(-4)"></use><use href="#l-plus" style="stroke-width: 3" transform="translate(9,3) scale(0.6)"></use></svg>
+</div>
+</div>
+<div id="7bbca08c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>show(Icon(<span class="st">'file'</span>, <span class="st">'l-'</span>, sz<span class="op">=</span><span class="dv">24</span>, fill<span class="op">=</span><span class="st">'yellow'</span>) <span class="op">+</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>     Icon(<span class="st">'arrow-up'</span>, <span class="st">'l-'</span>).translate(<span class="dv">2</span>,<span class="dv">3</span>).scale(<span class="fl">0.7</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-file" style="fill: yellow"></use><use href="#l-arrow-up" transform="translate(2,3) scale(0.7)"></use></svg>
+</div>
+</div>
+<p>Finally, lets show we can also apply transforms to combined icons by adding a skewX to the last icon:</p>
+<div id="fb8f6997" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>show((Icon(<span class="st">'file'</span>, <span class="st">'l-'</span>, sz<span class="op">=</span><span class="dv">24</span>, fill<span class="op">=</span><span class="st">'yellow'</span>) <span class="op">+</span> </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>      Icon(<span class="st">'arrow-up'</span>, <span class="st">'l-'</span>).translate(<span class="dv">2</span>,<span class="dv">3</span>).scale(<span class="fl">0.7</span>)).skewX(<span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="24px" width="24px" class="lucide-icon"><use href="#l-file" style="fill: yellow" transform="skewX(10)"></use><use href="#l-arrow-up" transform="translate(2,3) scale(0.7) skewX(10)"></use></svg>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L143" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="svgstyle" class="level3">
+<h3 class="anchored" data-anchor-id="svgstyle">SvgStyle</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> SvgStyle(</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    cls:<span class="bu">str</span><span class="op">=</span><span class="st">'lucide-icon'</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Styles required for lucide icons to display correctly</em></p>
+<hr>
+<p><a href="https://github.com/AnswerDotAI/fastlucide/blob/main/fastlucide/core.py#L148" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="svgsprites" class="level3">
+<h3 class="anchored" data-anchor-id="svgsprites">SvgSprites</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> SvgSprites(</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    pre:<span class="bu">str</span><span class="op">=</span><span class="st">''</span>, vbox:<span class="bu">int</span><span class="op">=</span><span class="dv">24</span>, sz:<span class="bu">int</span><span class="op">=</span><span class="dv">24</span>, cls:<span class="bu">str</span><span class="op">=</span><span class="st">'lucide-icon'</span>, nms:<span class="bu">tuple</span><span class="op">=</span>(), attrs:VAR_KEYWORD</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Create and track used icons</em></p>
+<div id="15820d4b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>ss <span class="op">=</span> SvgSprites(<span class="st">'lc-'</span>, sz<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>ss(nm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">svg</span><span class="ot"> xmlns</span><span class="op">=</span><span class="st">"http://www.w3.org/2000/svg"</span><span class="ot"> viewbox</span><span class="op">=</span><span class="st">"0 0 24 24"</span><span class="ot"> height</span><span class="op">=</span><span class="st">"18px"</span><span class="ot"> width</span><span class="op">=</span><span class="st">"18px"</span><span class="ot"> class</span><span class="op">=</span><span class="st">"lucide-icon "</span><span class="dt">&gt;&lt;</span><span class="kw">use</span><span class="ot"> href</span><span class="op">=</span><span class="st">"#lc-a-arrow-down"</span><span class="dt">&gt;&lt;/</span><span class="kw">use</span><span class="dt">&gt;&lt;/</span><span class="kw">svg</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="a9e612ef" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>show(ss(<span class="st">'a-arrow-down'</span>))</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>show(ss(<span class="st">'accessibility'</span>, stroke_width<span class="op">=</span><span class="dv">3</span>))</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>show(ss)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="18px" width="18px" class="lucide-icon "><use href="#lc-a-arrow-down"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="18px" width="18px" class="lucide-icon "><use href="#lc-accessibility" style="stroke-width: 3"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<style>.lucide-icon { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }</style>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none"><defs><symbol id="lc-a-arrow-down"><path d="M3.5 13h6"></path><path d="m2 16 4.5-9 4.5 9"></path><path d="M18 7v9"></path><path d="m14 12 4 4 4-4"></path></symbol><symbol id="lc-accessibility"><circle cx="16" cy="4" r="1"></circle><path d="m18 19 1-7-6 1"></path><path d="m5 8 3-3 5.5 3-2.36 3.5"></path><path d="M4.24 14.5a5 5 0 0 0 6.88 6"></path><path d="M13.76 17.5a5 5 0 0 0-6.88-6"></path></symbol></defs></svg>
+</div>
+</div>
+<div id="e7341596" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>show(Style(<span class="st">'.hover-bg:hover { background-color: aliceblue; }'</span>))</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>show(ss(<span class="st">'accessibility'</span>, sz<span class="op">=</span><span class="dv">30</span>, cls<span class="op">=</span><span class="st">'hover-bg'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<style>.hover-bg:hover { background-color: aliceblue; }</style>
+</div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="30px" width="30px" class="lucide-icon hover-bg"><use href="#lc-accessibility"></use></svg>
+</div>
+</div>
+<div id="4d8cb695" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>show(ss(<span class="st">'accessibility'</span>, stroke<span class="op">=</span><span class="st">'blue'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="18px" width="18px" class="lucide-icon "><use href="#lc-accessibility" style="stroke: blue"></use></svg>
+</div>
+</div>
+<div id="e384be91" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>show(Div(ss(<span class="st">'accessibility'</span>, stroke<span class="op">=</span><span class="st">'blue'</span>), style<span class="op">=</span><span class="st">'background-color: aliceblue'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div style="background-color: aliceblue">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="18px" width="18px" class="lucide-icon "><use href="#lc-accessibility" style="stroke: blue"></use></svg></div>
+</div>
+</div>
+<div id="5d3f2f50" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>ss <span class="op">=</span> SvgSprites(<span class="st">'lc-'</span>, sz<span class="op">=</span><span class="dv">32</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>show(ss(<span class="st">'circle'</span>, stroke<span class="op">=</span><span class="st">'steelblue'</span>) <span class="op">+</span> ss(<span class="st">'x'</span>, stroke<span class="op">=</span><span class="st">'crimson'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="32px" width="32px" class="lucide-icon "><use href="#lc-circle" style="stroke: steelblue"></use><use href="#lc-x" style="stroke: crimson"></use></svg>
+</div>
+</div>
+<div id="c46ab95d" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>show(ss(<span class="st">'arrow-up'</span>).scale(<span class="fl">0.7</span>).translate(<span class="dv">8</span>,<span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>     ss(<span class="st">'zap'</span>, stroke<span class="op">=</span><span class="st">'red'</span>).scale(<span class="fl">0.5</span>).translate(<span class="dv">2</span>, <span class="dv">19</span>))</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>show(ss)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="32px" width="32px" class="lucide-icon "><use href="#lc-arrow-up" transform="scale(0.7) translate(8,3)"></use><use href="#lc-zap" style="stroke: red" transform="scale(0.5) translate(2,19)"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<style>.lucide-icon { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }</style>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none"><defs><symbol id="lc-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></symbol><symbol id="lc-arrow-up"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></symbol><symbol id="lc-circle"><circle cx="12" cy="12" r="10"></circle></symbol><symbol id="lc-zap"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></symbol></defs></svg>
+</div>
+</div>
+<div id="ca6a9ef7" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>show(ss(<span class="st">'arrow-down'</span>).scale(<span class="fl">0.7</span>).translate(<span class="dv">8</span>,<span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>     ss(<span class="st">'zap'</span>, stroke<span class="op">=</span><span class="st">'red'</span>).scale(<span class="fl">0.5</span>).translate(<span class="dv">2</span>, <span class="dv">19</span>))</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>show(ss)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" height="32px" width="32px" class="lucide-icon "><use href="#lc-arrow-down" transform="scale(0.7) translate(8)"></use><use href="#lc-zap" style="stroke: red" transform="scale(0.5) translate(2,19)"></use></svg>
+</div>
+<div class="cell-output cell-output-display">
+<style>.lucide-icon { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }</style>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none"><defs><symbol id="lc-arrow-down"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></symbol><symbol id="lc-zap"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></symbol><symbol id="lc-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></symbol><symbol id="lc-arrow-up"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></symbol><symbol id="lc-circle"><circle cx="12" cy="12" r="10"></circle></symbol></defs></svg>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/AnswerDotAI\.github\.io\/fastlucide");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/AnswerDotAI/fastlucide/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
