@@ -28,4 +28,5 @@ version = {attr = "fastlucide.__version__"}
 include = ["fastlucide"]
 
 [tool.nbdev]
+allowed_cell_metadata_keys = ["solveit_ai"]
 custom_sidebar = false
