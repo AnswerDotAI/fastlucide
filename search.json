@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "core",
+    "section": "",
+    "text": "from fastcore.utils import *\nfrom fastcore.xml import *\nfrom fasthtml.common import *\nfrom fasthtml.svg import *\nfrom json import loads\nfrom copy import deepcopy\nimport pathlib\nimport math\n__file__='../fastlucide/_icons.py'\ndef read_icons():\n    path = pathlib.Path(__file__).parent\n    fpath = path/'_icons.py'\n    return loads(fpath.read_text())\nicons = read_icons()\nnm = 'a-arrow-down'\nico = icons[nm]\nico\n\n[['path', {'d': 'M3.5 13h6'}],\n ['path', {'d': 'm2 16 4.5-9 4.5 9'}],\n ['path', {'d': 'M18 7v9'}],\n ['path', {'d': 'm14 12 4 4 4-4'}]]\nsvg_attrs = dict(fill='none', stroke='currentColor', stroke_width='2', stroke_linecap='round', stroke_linejoin='round')\ndef sz_attrs(sz, vbox=24):\n    if isinstance(vbox, int): vbox = (vbox, vbox)\n    if isinstance(sz, int): sz = (sz, sz)\n    return dict(viewBox=f'0 0 {vbox[0]} {vbox[1]}', width=f'{sz[0]}px', height=f'{sz[1]}px')\nsym = [ft(t, **attrs) for t,attrs in ico]\nshow(Svg(*sym, **sz_attrs(24), **svg_attrs))\nshow(Svg(*sym, **sz_attrs(16), **svg_attrs))\ndef symbol(\n    icons, # icon dict\n    nm, # Name of icon in lucide\n    pre='' # Prefix to add to element id\n):\n    \"Create a `symbol` element for an icon\"\n    ico = icons[nm]\n    sym = [ft(t, **attrs) for t,attrs in ico]\n    return Symbol(*sym, id=pre+nm)\nsymbol(icons, nm, 'l-')\n\n&lt;symbol id=\"l-a-arrow-down\"&gt;&lt;path d=\"M3.5 13h6\"&gt;&lt;/path&gt;&lt;path d=\"m2 16 4.5-9 4.5 9\"&gt;&lt;/path&gt;&lt;path d=\"M18 7v9\"&gt;&lt;/path&gt;&lt;path d=\"m14 12 4 4 4-4\"&gt;&lt;/path&gt;&lt;/symbol&gt;\ndef sprites(\n    icons, # icon dict\n    nms, # List of lucide icon names\n    pre='' # Prefix to add to all element ids\n):\n    \"SVG element containing all symbols in `nms`\"\n    syms = [symbol(icons, nm, pre) for nm in nms]\n    return Svg(Defs(*syms), style=\"display: none\")\nsps = sprites(icons, [nm, 'accessibility'], 'l-')\nshow(sps)\ndef _style_str(stroke=None, fill=None, stroke_width=None):\n    \"Build CSS style string from stroke/fill/stroke-width\"\n    styles = []\n    if stroke: styles.append(f'stroke: {stroke}')\n    if fill: styles.append(f'fill: {fill}')\n    if stroke_width: styles.append(f'stroke-width: {stroke_width}')\n    return '; '.join(styles) if styles else None\nclass Icon:\n    def __init__(\n        self,\n        nm, # Name of icon in lucide\n        pre='', # Prefix to add to element id\n        cls=\"lucide-icon\", # class to use for svg\n        vbox=24, # viewBox size (int for square, or (w,h) tuple)\n        sz=24, # size of svg\n        stroke=None, # Stroke CSS\n        stroke_width=None, # Stroke width CSS\n        fill=None, # Fill CSS\n        trans=None, # SVG transform attribute\n        **attrs # additional attrs for svg\n    ):\n        \"A `use` element in an `svg` element refering to `nm`\"\n        store_attr()\n        self.attrs = sz_attrs(self.sz, self.vbox) | attrs\n        style = _style_str(stroke, fill, stroke_width)\n        self.uses = [Use(href=f\"#{pre}{nm}\", style=style, transform=trans)]\n    \n    def __ft__(self): return Svg(*self.uses, cls=self.cls, **self.attrs)\n\n    def _repr_markdown_(self): return self.__ft__()._repr_markdown_()\n    def __repr__(self): return self.__ft__().__repr__()\n    def __str__(self): return self.__ft__().__str__()\n    def __call__(self, *args, **kwargs): return self.__ft__().__call__(*args, **kwargs)\naccs = Icon('accessibility', 'l-', sz=16)\naccs\n\n&lt;svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" height=\"16px\" width=\"16px\" class=\"lucide-icon\"&gt;&lt;use href=\"#l-accessibility\"&gt;&lt;/use&gt;&lt;/svg&gt;\nprint(accs(foo='bar'))\n\n&lt;svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" height=\"16px\" width=\"16px\" class=\"lucide-icon\" foo=\"bar\"&gt;&lt;use href=\"#l-accessibility\"&gt;&lt;/use&gt;&lt;/svg&gt;\nshow(accs)\nshow(Icon('accessibility', 'l-', sz=16, stroke_width=3))",
+    "crumbs": [
+      "core"
+    ]
+  },
+  {
+    "objectID": "core.html#transforms",
+    "href": "core.html#transforms",
+    "title": "core",
+    "section": "Transforms",
+    "text": "Transforms\nNow let’s add a helper function to transform Icon’s with python object methods.\n\n@patch\ndef _with_trans(self:Icon, t):\n    \"Helper function to add the transform to all underlying uses.\"\n    res = deepcopy(self)\n    for u in res.uses: u.transform = f\"{u.transform or ''} {t}\".strip()\n    return res\n\nUsing that we can define the six svg transforms as python instance methods.\n\n@patch\ndef rotate(self:Icon, a, cx=0, cy=0):\n    \"Rotates the element by a degrees, optionally around point (cx, cy).\"\n    return self._with_trans(f'rotate({a})' if not cx else f'rotate({a},{cx},{cy})')\n\n\nshow(au:=Icon('arrow-up','l-'))\nshow(au.rotate(45,12,12))\n\n\n\n\n\n\n\n\n@patch\ndef scale(self:Icon, x, y=0):\n    \"Scales the element by x (and optionally y).\"\n    return self._with_trans(f'scale({x})' if not y else f'scale({x},{y})')\n\nNow we can also demonstrate transform chaining:\n\nshow(au)\nshow(au.scale(0.75,0.75))\nshow(au.scale(0.75,0.75).rotate(45,12,12))\n\n\n\n\n\n\n\n\n\n\nContinuing with the other transforms:\n\n@patch\ndef translate(self:Icon, x, y=0): \n    \"Moves the element by x horizontally and optionally y vertically.\"\n    return self._with_trans(f'translate({x})' if not y else f'translate({x},{y})')\n\n\nshow(au)\nshow(au.translate(-5,-5))\n\n\n\n\n\n\n\n\n@patch\ndef skewX(self:Icon, a):\n    \"Skews the element along the X axis by a degrees.\"\n    return self._with_trans(f'skewX({a})')\n\n@patch\ndef skewY(self:Icon, a):\n    \"Skews the element along the Y axis by a degrees.\"\n    return self._with_trans(f'skewY({a})')\n\n\nshow(au)\nshow(au.skewX(20))\nshow(au.skewY(20))\n\n\n\n\n\n\n\n\n\n\nThe matrix(a, b, c, d, e, f) transform combines all other transforms into one. The parameters map to:\n\na, d — scale X and Y\nb, c — skew Y and X\n\ne, f — translate X and Y\n\nCommon patterns: - matrix(1, 0, 0, 1, tx, ty) — translate by (tx, ty) - matrix(sx, 0, 0, sy, 0, 0) — scale by (sx, sy) - matrix(1, tan(ay), tan(ax), 1, 0, 0) — skew by angles ax, ay\nFor more details see MDN SVG matrix transform docs.\n\n@patch\ndef matrix(self:Icon, a, b, c, d, e, f):\n    \"Applies a matrix transformation with 6 values.\"\n    return self._with_trans(f'matrix({a},{b},{c},{d},{e},{f})')\n\nExamples showing their equivalence to the other transforms:\n\nshow(au.translate(5, 5))\nshow(au.matrix(1, 0, 0, 1, 5, 5))\n\n\n\n\n\n\n\n\nshow(au.scale(0.7, 0.7))\nshow(au.matrix(0.7, 0, 0, 0.7, 0, 0))\n\n\n\n\n\n\n\n\nshow(au.skewX(20))\nshow(au.matrix(1, 0, math.tan(math.radians(20)), 1, 0, 0))",
+    "crumbs": [
+      "core"
+    ]
+  },
+  {
+    "objectID": "core.html#combining-icons",
+    "href": "core.html#combining-icons",
+    "title": "core",
+    "section": "Combining icons",
+    "text": "Combining icons\n\n@patch\ndef __iadd__(self:Icon, b):\n    self.uses += b.uses\n    return self\n\n@patch\ndef __add__(self:Icon, b):\n    res = deepcopy(self)\n    res += b\n    return res\n\n\nad = Icon('a-arrow-down', 'l-')\nshow(accs+ad)\n\n\n\n\n\nsps = sprites(icons, [nm, 'accessibility', 'check', 'user', 'plus', 'circle', 'file', 'arrow-up'], 'l-')\nshow(sps)\n\n\n\n\n\nshow(Icon('circle', 'l-', sz=24) + Icon('check', 'l-', stroke='red'))\n\n\n\n\n\nshow(Icon('circle', 'l-', sz=24) + Icon('check', 'l-', stroke='red').translate(2,3).scale(0.8))\n\n\n\n\n\nshow(Icon('user', 'l-', sz=24, stroke_width=1).translate(-4, 0) +\n     Icon('plus', 'l-', stroke_width=3).translate(9, 3).scale(0.6))\n\n\n\n\n\nshow(Icon('file', 'l-', sz=24, fill='yellow') + \n     Icon('arrow-up', 'l-').translate(2,3).scale(0.7))\n\n\n\n\nFinally, lets show we can also apply transforms to combined icons by adding a skewX to the last icon:\n\nshow((Icon('file', 'l-', sz=24, fill='yellow') + \n      Icon('arrow-up', 'l-').translate(2,3).scale(0.7)).skewX(10))\n\n\n\n\n\ndef SvgStyle(cls=\"lucide-icon\"):\n    \"Styles required for lucide icons to display correctly\"\n    return Style(f'.{cls} {{ stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }}')\n\n\nclass SvgSprites:\n    \"Create and track used icons\"\n    def __init__(self, pre='', vbox=24, sz=24, cls=\"lucide-icon\", nms=(), **attrs):\n        nms = set(nms)\n        self.attrs = attrs\n        self.icons = read_icons()\n        store_attr()\n\n    def __call__(self, nm, sz=None, cls=\"\", **kw):\n        self.nms.add(nm)\n        if not sz: sz=self.sz\n        attrs = self.attrs | kw\n        return Icon(nm, self.pre, vbox=self.vbox, sz=sz, cls = f\"{self.cls} {cls}\", **attrs)\n\n    def __ft__(self):\n        return SvgStyle(cls=self.cls),sprites(self.icons, self.nms, self.pre)\n\n\nss = SvgSprites('lc-', sz=18)\nss(nm)\n\n&lt;svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" height=\"18px\" width=\"18px\" class=\"lucide-icon \"&gt;&lt;use href=\"#lc-a-arrow-down\"&gt;&lt;/use&gt;&lt;/svg&gt;\n\n\n\nshow(ss('a-arrow-down'))\nshow(ss('accessibility', stroke_width=3))\nshow(ss)\n\n\n\n\n\n\n\n\n\n\n\n\nshow(Style('.hover-bg:hover { background-color: aliceblue; }'))\nshow(ss('accessibility', sz=30, cls='hover-bg'))\n\n\n\n\n\n\n\n\nshow(ss('accessibility', stroke='blue'))\n\n\n\n\n\nshow(Div(ss('accessibility', stroke='blue'), style='background-color: aliceblue'))\n\n\n\n\n\n\nss = SvgSprites('lc-', sz=32)\nshow(ss('circle', stroke='steelblue') + ss('x', stroke='crimson'))\n\n\n\n\n\nshow(ss('arrow-up').scale(0.7).translate(8,3) +\n     ss('zap', stroke='red').scale(0.5).translate(2, 19))\nshow(ss)\n\n\n\n\n\n\n\n\n\nshow(ss('arrow-down').scale(0.7).translate(8,0) +\n     ss('zap', stroke='red').scale(0.5).translate(2, 19))\nshow(ss)",
+    "crumbs": [
+      "core"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "fastlucide",
+    "section": "",
+    "text": "A convenient FastHTML wrapper for the excellent Lucide icon library.",
+    "crumbs": [
+      "fastlucide"
+    ]
+  },
+  {
+    "objectID": "index.html#installation",
+    "href": "index.html#installation",
+    "title": "fastlucide",
+    "section": "Installation",
+    "text": "Installation\nInstall from pypi\n$ pip install fastlucide",
+    "crumbs": [
+      "fastlucide"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "fastlucide",
+    "section": "How to use",
+    "text": "How to use\n\nfrom fastlucide import *\n\n\nSvgSprites\nThe most convenient way to use fastlucide is to create an SvgSprites class, passing in a short prefix to ensure IDs are unique:\n\nss = SvgSprites('l-')\n\nThen add icons whereever you want to show them, by calling the ss object with the desired name. Any additional attrs are added to the SVG.\n(NB: we use show here to cause the SVGs to render in the notebook/docs. This isn’t needed in a regular FastHTML app.)\n\nfrom fasthtml.common import show,Div\n\n\nshow(ss('a-arrow-down'))\nshow(ss('accessibility'))\n\n\n\n\n\n\n\nFinally, be sure to render ss itself, to add the sprite sheet to the DOM.\n\nshow(ss)\n\n\n\n\n\n\n\nfastlucide.icons\nIf you dynamically add a new icon to the DOM after loading the page (e.g using an HTMX swap), then the SvgSprites element will not contain that icon, so it won’t display. One solution to this is to preinitialize using e.g SvgSprites(nms=['air-vent', 'apple']).\nAlternatively, you can import any icon name (sentence-cased, with underscores instead of hyphens) from fastlucide.icons, which will create an icon-generating function and also adds the name to spritesheet, which is an SvgSprite singleton.\n\nfrom fastlucide.icons import spritesheet, Air_vent, Apple, Circle, X\n\nYou can now call Air_vent and Apple as functions – be sure to also include spritesheet in the DOM. If you use the same icon multiple times, you can optionally store it in a variable.\n\nvent = Air_vent(stroke='green')\nshow(vent, Apple(sz=48, fill='red'), vent,\n     spritesheet)\n\n\n\n\n\nYou can create a combination of SVGs:\n\nshow(Circle(stroke='steelblue') + X(stroke='crimson'))\nshow(spritesheet)\n\n\n\n\n\n\n\n\nBecause fastlucide.icons supports the __dir__ protocol, you can use tab-completion in jupyter and similar environments to view a list of matching icons. Or call dir() programmatically.\n\nfrom fastlucide import icons\n\n\n[o for o in dir(icons) if o.startswith('Star')]\n\n['Star', 'Star_half', 'Star_off']",
+    "crumbs": [
+      "fastlucide"
+    ]
+  },
+  {
+    "objectID": "index.html#how-it-works",
+    "href": "index.html#how-it-works",
+    "title": "fastlucide",
+    "section": "How it works",
+    "text": "How it works\nWhen we render an icon, the actual SVG path information is not included – only an href to an id is there:\n\nss('a-arrow-down')\n\n&lt;svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" height=\"24px\" width=\"24px\" class=\"lucide-icon \"&gt;&lt;use href=\"#l-a-arrow-down\"&gt;&lt;/use&gt;&lt;/svg&gt;\n\n\nThe definitions of these ids is provided in the ss object itself, along with style information:\n\nfrom fastcore.xml import highlight\nfrom IPython.display import Markdown\n\n\nMarkdown(highlight(ss))\n\n&lt;style&gt;.lucide-icon { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }&lt;/style&gt;\n&lt;svg xmlns=\"http://www.w3.org/2000/svg\" style=\"display: none\"&gt;&lt;defs&gt;&lt;symbol id=\"l-a-arrow-down\"&gt;&lt;path d=\"M3.5 13h6\"&gt;&lt;/path&gt;&lt;path d=\"m2 16 4.5-9 4.5 9\"&gt;&lt;/path&gt;&lt;path d=\"M18 7v9\"&gt;&lt;/path&gt;&lt;path d=\"m14 12 4 4 4-4\"&gt;&lt;/path&gt;&lt;/symbol&gt;&lt;symbol id=\"l-accessibility\"&gt;&lt;circle cx=\"16\" cy=\"4\" r=\"1\"&gt;&lt;/circle&gt;&lt;path d=\"m18 19 1-7-6 1\"&gt;&lt;/path&gt;&lt;path d=\"m5 8 3-3 5.5 3-2.36 3.5\"&gt;&lt;/path&gt;&lt;path d=\"M4.24 14.5a5 5 0 0 0 6.88 6\"&gt;&lt;/path&gt;&lt;path d=\"M13.76 17.5a5 5 0 0 0-6.88-6\"&gt;&lt;/path&gt;&lt;/symbol&gt;&lt;/defs&gt;&lt;/svg&gt;",
+    "crumbs": [
+      "fastlucide"
+    ]
+  }
+]
